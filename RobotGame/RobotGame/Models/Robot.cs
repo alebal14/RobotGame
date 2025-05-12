@@ -1,9 +1,4 @@
 ﻿using RobotGame.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RobotGame.Models
 {
@@ -12,10 +7,10 @@ namespace RobotGame.Models
         public Position Position { get; set; }
         public Direction Orientation { get; set; }
 
-        public Robot(Position initialPosition, Direction initialOrientation)
+        public Robot(Position position, Direction orientation)
         {
-            Position = initialPosition;
-            Orientation = initialOrientation;
+            Position = position;
+            Orientation = orientation;
         }
     }
 }

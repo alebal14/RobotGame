@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using RobotGame.Controllers;
 using RobotGame.Enums;
 using RobotGame.Models;
 
@@ -8,7 +9,6 @@ Console.WriteLine("╚═══════════════════�
 Console.WriteLine("\nWelcome to Robot Game! Navigate your robot within a grid room.\n");
 
 Console.WriteLine("ROOM SETUP");
-Console.ResetColor();
 Console.WriteLine("Please enter the room's dimension in format: Width Height");
 Console.WriteLine("Example: 5 5 for a 5x5 grid");
 
@@ -73,6 +73,9 @@ var robot = new Robot(position, direction);
 
 Console.WriteLine($"\nRobot placed at position ({robot.Position.X},{robot.Position.Y}) facing {robot.Orientation}");
 
+var gameController = new GameController(room, robot);
+
+
 var isPlaying = true;
 
 while (isPlaying)
@@ -89,65 +92,11 @@ while (isPlaying)
         throw new ArgumentException("No moves provided");
     }
 
-    foreach (char move in inputMoves.ToUpper())
-    {
+    var commandResult = gameController.ExecuteCommands(inputMoves);
+    isPlaying = commandResult.IsRobotInside;
 
-        if (move != 'L' && move != 'R' && move != 'F')
-        {
-            throw new ArgumentException($"Invalid move: {move}. Use only L, R, or F");
-        }
 
-        if (move == 'L')
-        {
-            Direction dir = robot.Orientation switch
-            {
-                Direction.North => Direction.West,
-                Direction.West => Direction.South,
-                Direction.South => Direction.East,
-                Direction.East => Direction.North,
-                _ => throw new InvalidOperationException($"Unknown direction: {robot.Orientation}")
-            };
-
-            robot.Orientation = dir;
-
-        }
-        if (move == 'R')
-        {
-            Direction dir = robot.Orientation switch
-            {
-                Direction.North => Direction.East,
-                Direction.East => Direction.South,
-                Direction.South => Direction.West,
-                Direction.West => Direction.North,
-                _ => throw new InvalidOperationException($"Unknown direction: {robot.Orientation}")
-            };
-
-            robot.Orientation = dir;
-
-        }
-        if (move == 'F')
-        {
-
-            Position newPosition = robot.Orientation switch
-            {
-                Direction.North => new Position(robot.Position.X, robot.Position.Y + 1),
-                Direction.East => new Position(robot.Position.X + 1, robot.Position.Y),
-                Direction.South => new Position(robot.Position.X, robot.Position.Y - 1),
-                Direction.West => new Position(robot.Position.X - 1, robot.Position.Y),
-                _ => throw new InvalidOperationException($"Unknown direction: {robot.Orientation}")
-            };
-
-            robot.Position = newPosition;
-
-            if (newPosition.X < 0 || newPosition.X >= room.Width || newPosition.Y < 0 || newPosition.Y >= room.Height)
-            {
-                isPlaying = false;
-            }
-
-        }
-    }
-
-    Console.WriteLine($"Report: {robot.Position.X} {robot.Position.Y} {(char)robot.Orientation} \n");
+    Console.WriteLine($"Report: {commandResult.Robot.Position.X} {commandResult.Robot.Position.Y} {(char)commandResult.Robot.Orientation} \n");
 
 }
 
