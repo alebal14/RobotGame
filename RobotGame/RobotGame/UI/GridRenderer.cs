@@ -1,10 +1,5 @@
 ﻿using RobotGame.Enums;
 using RobotGame.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RobotGame.UI
 {
@@ -29,29 +24,43 @@ namespace RobotGame.UI
             _grid = new char[room.Height, room.Width];
         }
 
+        //Renders the grid with the robot's position to the console
         public void DrawGrid()
         {
+            //Prepare the grid with empty cells and robot 
             DrawEmptyCells();
-            PlaceRobot();            
+            PlaceRobot();
 
+            //Draw top border
             Console.WriteLine(new string('-', _room.Width * 2 + 3));
 
+            //Draw each row from top to bottom
             for (int y = _room.Width - 1; y >= 0; y--)
             {
+                //Draw row numbers and left border
                 Console.Write($"{y}|");
+
+                // Draw cells in the row
                 for (int x = 0; x < _room.Height; x++)
                 {
                     Console.Write($"{_grid[x, y]} ");
                 }
+
+                // Draw right border
                 Console.WriteLine("|");
             }
 
+            // Draw bottom border
             Console.WriteLine(new string('-', _room.Height * 2 + 3));
+
             Console.Write(" ");
+
+            // Draw x-axis labels
             for (int x = 0; x < _room.Height; x++)
             {
                 Console.Write($" {x}");
             }
+
             Console.WriteLine();
         }
 
@@ -68,13 +77,15 @@ namespace RobotGame.UI
 
         private void PlaceRobot()
         {
+            // Get the ASCII character based on robot orientation
             char robotChar = GetAsciiRobotChar(_robot.Orientation);
 
+            // Place the robot character at its position
             _grid[_robot.Position.X, _robot.Position.Y] = robotChar;
         }
 
         private char GetAsciiRobotChar(Direction direction)
-        {
+        {            
             return direction switch
             {
                 Direction.North => ROBOT_NORTH_ASCII,
@@ -84,6 +95,5 @@ namespace RobotGame.UI
                 _ => '?'
             };
         }
-
     }
 }

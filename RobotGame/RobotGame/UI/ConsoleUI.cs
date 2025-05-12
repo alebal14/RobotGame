@@ -13,10 +13,12 @@ namespace RobotGame.UI
             Console.WriteLine("\nWelcome to Robot Game! Navigate your robot within a grid room.\n");
         }
 
+        //Gets room dimenstion from user
         public RoomGrid GetRoomDimensions()
         {
             RoomGrid? room = null;
 
+            //Loop until valid input received
             while (room == null)
             {
 
@@ -26,6 +28,7 @@ namespace RobotGame.UI
 
                 var inputDimensions = Console.ReadLine();
 
+                //validate input is not empty or too short
                 if (inputDimensions == null || inputDimensions.Length < 3)
                 {
                     Console.WriteLine("Invalid input, please enter two numbers, like this: 5 5\n");
@@ -34,12 +37,14 @@ namespace RobotGame.UI
 
                 string[] dimensions = inputDimensions.Split(' ');
 
+                //Parse room's width and height as integers
                 if (!int.TryParse(dimensions[0], out int width) || !int.TryParse(dimensions[1], out int height))
                 {
                     Console.WriteLine("Invalid input, please enter two numbers, like this: 5 5\n");
                     continue;
                 }
 
+                //Ensures height and width are positive
                 if (width <= 0 || height <= 0)
                 {
                     Console.WriteLine("Room dimensions must be positive values.\n");
@@ -55,6 +60,7 @@ namespace RobotGame.UI
             return room;
         }
 
+        //Gets initial robot position from user
         public Robot GetRobotPlacement(RoomGrid room)
         {
             Robot? robot = null;
@@ -69,6 +75,7 @@ namespace RobotGame.UI
 
                 var inputPlace = Console.ReadLine();
 
+                // Validate input is not empty or too short
                 if (inputPlace == null || inputPlace.Length < 4)
                 {
                     Console.WriteLine("Invalid input, please enter two number and a Direction, like this: 5 5 N \n");
@@ -77,13 +84,14 @@ namespace RobotGame.UI
 
                 var startPosition = inputPlace.Split(' ');
 
-
+                // Parse X and Y coordinates as integers
                 if (!int.TryParse(startPosition[0], out int startX) || !int.TryParse(startPosition[1], out int startY))
                 {
                     Console.WriteLine("Invalid position. Both X and Y must be integers. \n");
                     continue;
                 }
 
+                // Check if input position is within room boundaries
                 if (startX < 0 || startX >= room.Width || startY < 0 || startY >= room.Height)
                 {
                     Console.WriteLine($"Position ({startX},{startY}) is outside the room bounds. Valid positions are from (0,0) to ({room.Width - 1},{room.Height - 1}). \n");
@@ -94,6 +102,7 @@ namespace RobotGame.UI
 
                 char directionChar = startPosition[2][0];
 
+                //Parse robot's direction
                 Direction direction;
                 switch (directionChar)
                 {
@@ -123,6 +132,7 @@ namespace RobotGame.UI
             return robot;
         }
 
+        //Gets movement commands from user 
         public string GetMovementCommands()
         {
             string? inputCommands = null;
@@ -137,12 +147,14 @@ namespace RobotGame.UI
 
                 inputCommands = Console.ReadLine();
 
+                // Validate input is not empty
                 if (string.IsNullOrEmpty(inputCommands))
                 {
                     Console.WriteLine("No moves provided\n");
                     continue;
                 }
 
+                // Validate each input character is a valid command
                 bool invalidCommandFound = false;
                 foreach (char command in inputCommands.ToUpper())
                 {

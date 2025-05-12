@@ -15,6 +15,7 @@ namespace RobotGame.Controllers
             _robot = robot;
         }
 
+        //Execute the robot movement commands
         public CommandResult ExecuteCommands(string commands)
         {
 
@@ -69,6 +70,8 @@ namespace RobotGame.Controllers
             };
         }
 
+        //Moves the robot one step forward
+        //Checks if the robot is still inside the room
         private void MoveForward()
         {
             Position newPosition = _robot.Orientation switch
@@ -81,6 +84,8 @@ namespace RobotGame.Controllers
             };
 
             _robot.Position = newPosition;
+
+            // Checks if robot remains inside the room
             _isRobotInside = IsPositionInside(newPosition);
         }
 
