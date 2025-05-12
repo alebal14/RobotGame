@@ -12,14 +12,14 @@ Robot robot = userInterface.GetRobotPlacement(room);
 GameController gameController = new GameController(room, robot);
 
 
-var isPlaying = true;
+var continuePlaying = true;
 
-while (isPlaying)
+while (continuePlaying)
 {
 
     string inputCommands = userInterface.GetMovementCommands();
     var commandResult = gameController.ExecuteCommands(inputCommands);
-    isPlaying = commandResult.IsRobotInside;
+    continuePlaying = commandResult.IsRobotInside;
 
     userInterface.DisplayResult(commandResult);
 
