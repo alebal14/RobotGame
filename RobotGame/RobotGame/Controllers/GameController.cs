@@ -20,7 +20,6 @@ namespace RobotGame.Controllers
 
             foreach (char command in commands)
             {
-                
 
                 switch (command)
                 {
@@ -54,7 +53,7 @@ namespace RobotGame.Controllers
                 Direction.West => Direction.South,
                 Direction.South => Direction.East,
                 Direction.East => Direction.North,
-                _ => throw new InvalidOperationException($"Unknown direction: {_robot.Orientation}")
+                _ => _robot.Orientation
             };
         }
 
@@ -66,7 +65,7 @@ namespace RobotGame.Controllers
                 Direction.East => Direction.South,
                 Direction.South => Direction.West,
                 Direction.West => Direction.North,
-                _ => throw new InvalidOperationException($"Unknown direction: {_robot.Orientation}")
+                _ => _robot.Orientation
             };
         }
 
@@ -78,7 +77,7 @@ namespace RobotGame.Controllers
                 Direction.East => new Position(_robot.Position.X + 1, _robot.Position.Y),
                 Direction.South => new Position(_robot.Position.X, _robot.Position.Y - 1),
                 Direction.West => new Position(_robot.Position.X - 1, _robot.Position.Y),
-                _ => throw new InvalidOperationException($"Unknown direction: {_robot.Orientation}")
+                _ => _robot.Position
             };
 
             _robot.Position = newPosition;
