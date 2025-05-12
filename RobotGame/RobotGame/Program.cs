@@ -11,6 +11,9 @@ Robot robot = userInterface.GetRobotPlacement(room);
 
 GameController gameController = new GameController(room, robot);
 
+GridRenderer grindRenderer = new GridRenderer(room, robot);
+
+grindRenderer.DrawGrid();
 
 var continuePlaying = true;
 
@@ -26,3 +29,4 @@ while (continuePlaying)
 }
 
 userInterface.DisplayGameOver();
+Environment.Exit(1);

@@ -86,7 +86,7 @@ namespace RobotGame.UI
 
                 if (startX < 0 || startX >= room.Width || startY < 0 || startY >= room.Height)
                 {
-                    Console.WriteLine($"Position ({startX},{startY}) is outside the room bounds (0,0) to ({room.Width - 1},{room.Height - 1}). \n");
+                    Console.WriteLine($"Position ({startX},{startY}) is outside the room bounds. Valid positions are from (0,0) to ({room.Width - 1},{room.Height - 1}). \n");
                     continue;
                 }
 
@@ -161,7 +161,6 @@ namespace RobotGame.UI
                 }
 
             }
-
 
             return inputCommands.ToUpper();
         }
