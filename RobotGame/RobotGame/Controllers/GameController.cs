@@ -18,12 +18,9 @@ namespace RobotGame.Controllers
         public CommandResult ExecuteCommands(string commands)
         {
 
-            foreach (char command in commands.ToUpper())
+            foreach (char command in commands)
             {
-                if (command != 'L' && command != 'R' && command != 'F')
-                {
-                    throw new ArgumentException($"Invalid move: {command}. Use only L, R, or F");
-                }
+                
 
                 switch (command)
                 {
