@@ -2,7 +2,7 @@
 
 namespace RobotGame.Models
 {
-    class Robot
+    public class Robot
     {
         public Position Position { get; set; }
         public Direction Orientation { get; set; }

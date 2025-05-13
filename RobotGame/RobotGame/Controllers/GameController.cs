@@ -3,7 +3,7 @@ using RobotGame.Models;
 
 namespace RobotGame.Controllers
 {
-    class GameController
+    public class GameController
     {
         private readonly RoomGrid _room;
         private readonly Robot _robot;
